@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import BookingRow from "./BookingRow";
 
+import axios from 'axios';
 const Bookings = () => {
     const {user}=useContext(AuthContext);
     const [orders,setOrders]=useState([]);
@@ -58,12 +59,15 @@ const Bookings = () => {
       });
     }
     const url=`http://localhost:5000/orders?email=${user?.email}`;
+
     useEffect(()=>{
 
-        fetch(url)
-        .then(res=>res.json())
-        .then(data=>setOrders(data))
-    },[])
+        // fetch(url)
+        // .then(res=>res.json())
+        // .then(data=>setOrders(data))
+        axios.get(url,{withCredentials:true})
+        .then(res=>setOrders(res.data))
+    },[url])
     return (
         <div>
         <h2 className="text-5xl mt-5 mb-5">
