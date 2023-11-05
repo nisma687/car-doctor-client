@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 
 import { useNavigate } from 
 "react-router-dom";
-import axios from 'axios';
+// import axios from 'axios';
 
 
 const Login = () => {
@@ -27,18 +27,18 @@ const Login = () => {
         const loggedInUser=res.user;
 
         console.log(loggedInUser);
-        const user={email};
-        // navigate(location?.state? location?.state : "/")
+        // const user={email};
+        navigate(location?.state? location?.state : "/")
         // get access token
-       axios.post('http://localhost:5000/jwt',user,{withCredentials:true})
-       .then(res=>{
-        console.log(res.data);
-        if(res.data.success)
-        {
-          navigate(location?.state? location?.state : "/")
-        }
+      //  axios.post('http://localhost:5000/jwt',user,{withCredentials:true})
+      //  .then(res=>{
+      //   console.log(res.data);
+      //   if(res.data.success)
+      //   {
+      //     navigate(location?.state? location?.state : "/")
+      //   }
 
-       })
+      //  })
 
 
 
