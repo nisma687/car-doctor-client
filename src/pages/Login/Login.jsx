@@ -1,18 +1,19 @@
 
 import { Link } from "react-router-dom";
 import loginImg from "../../../assets/images/login/login.svg"
-import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
+// import { useContext } from "react";
+// import { AuthContext } from "../../providers/AuthProvider";
 import { useLocation } from "react-router-dom";
 
 import { useNavigate } from 
 "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 // import axios from 'axios';
 
 
 const Login = () => {
-
-  const {signIn}=useContext(AuthContext);
+  const {signIn}=useAuth();
+  // const {signIn}=useContext(AuthContext);
   const location=useLocation();
   console.log(location);
   const navigate=useNavigate();
@@ -30,7 +31,7 @@ const Login = () => {
         // const user={email};
         navigate(location?.state? location?.state : "/")
         // get access token
-      //  axios.post('http://localhost:5000/jwt',user,{withCredentials:true})
+      //  axios.post('https://car-doctor-server-liard-three.vercel.app/jwt',user,{withCredentials:true})
       //  .then(res=>{
       //   console.log(res.data);
       //   if(res.data.success)

@@ -3,18 +3,20 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import BookingRow from "./BookingRow";
 
-import axios from 'axios';
+// import axios from 'axios';
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 const Bookings = () => {
     const {user}=useContext(AuthContext);
     const [orders,setOrders]=useState([]);
-   
+   const axiosSecure= useAxiosSecure();
     const handleDelete=(id)=>{
        
         console.log(id);
         const proceed= confirm('Are you sure you want to delete?');
         if(proceed)
         {
-            fetch(`http://localhost:5000/orders/${id}`,
+            fetch(`https://
+            car-doctor-server-liard-three.vercel.app/orders/${id}`,
             {
             method:'DELETE'
         })
@@ -32,7 +34,7 @@ const Bookings = () => {
     }
     const handleConfirm=(id)=>{
         console.log('confirm',id);
-        fetch(`http://localhost:5000/orders/${id}`,
+        fetch(`https://car-doctor-server-liard-three.vercel.app/orders/${id}`,
         {
         method:'PATCH',
         headers:{
@@ -58,16 +60,20 @@ const Bookings = () => {
         // Handle the error, show an error message to the user, etc.
       });
     }
-    const url=`http://localhost:5000/orders?email=${user?.email}`;
+    // const url=`https://car-doctor-server-liard-three.vercel.app/orders?email=${user?.email}`;
+
+    const url=`/orders?email=${user?.email}`;
 
     useEffect(()=>{
 
         // fetch(url)
         // .then(res=>res.json())
         // .then(data=>setOrders(data))
-        axios.get(url,{withCredentials:true})
+        // axios.get(url,{withCredentials:true})
+        // .then(res=>setOrders(res.data))
+        axiosSecure.get(url)
         .then(res=>setOrders(res.data))
-    },[url])
+    },[url,axiosSecure])
     return (
         <div>
         <h2 className="text-5xl mt-5 mb-5">
